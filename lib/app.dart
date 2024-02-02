@@ -8,7 +8,8 @@ class App extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Text("data"),
+          Text("data 1"),
+          Text("data 2"),
         ],
       ),
     );
