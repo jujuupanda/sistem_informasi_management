@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+class ButtonLogin extends StatefulWidget {
+  final VoidCallback? onTap;
 
-class ButtonLogin extends StatelessWidget {
   const ButtonLogin({
+    required this.onTap,
     super.key,
   });
 
+  @override
+  State<ButtonLogin> createState() => _ButtonLoginState();
+}
+
+class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,19 +24,19 @@ class ButtonLogin extends StatelessWidget {
       ),
       child: Material(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(15),
         child: InkWell(
-          onTap: () {},
+          onTap: widget.onTap,
+          borderRadius: BorderRadius.circular(15),
           splashColor: Colors.blue,
           child: const Center(
               child: Text(
-                "Masuk",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              )),
+            "Masuk",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          )),
         ),
       ),
     );

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'logout_button.dart';
 
 class MainPageStudent extends StatelessWidget {
   const MainPageStudent({
@@ -13,6 +17,8 @@ class MainPageStudent extends StatelessWidget {
         Center(
           child: Text("Murid"),
         ),
+        Gap(70),
+        LogoutButton(),
       ],
     );
   }

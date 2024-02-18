@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sistem_informasi_sekolah/src/presentation/pages/login/login.dart';
+import 'package:sistem_informasi_sekolah/src/routes/routes_app.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -8,6 +8,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: const LoginPage());
+        child: MaterialApp.router(
+          routerConfig: RoutesApp().router,
+        ));
   }
 }

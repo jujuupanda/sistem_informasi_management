@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sistem_informasi_sekolah/src/data/bloc/auth/auth_bloc.dart';
+import 'package:sistem_informasi_sekolah/src/routes/name_routes.dart';
 
 import '../../widgets/login/login_widget.dart';
 
@@ -13,6 +17,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late TextEditingController _emailCtrl;
   late TextEditingController _passwordCtrl;
+  late AuthBloc _authBloc;
+
+  loginButton() {
+    _authBloc = context.read<AuthBloc>();
+    _authBloc.add(
+      AuthLoginEvent(
+        _emailCtrl.text.toString(),
+        _passwordCtrl.text.toString(),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -23,11 +38,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Expanded(
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthLoginSuccessState) {
+          context.goNamed(Routes().main);
+        }
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(40),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                     alignment: Alignment.centerRight,
                     child: ForgetPasswordButton()),
                 const Gap(20),
-                const ButtonLogin(),
+                ButtonLogin(onTap: loginButton),
                 const Gap(15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
