@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'app.dart';
 import 'src/data/bloc/auth/auth_bloc.dart';
@@ -20,9 +19,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthBloc(repository: Repository()),
         )
       ],
-      child: const MaterialApp(
-        home: App(),
-      ),
+      child: const App(),
     );
   }
 }

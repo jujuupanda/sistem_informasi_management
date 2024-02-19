@@ -7,10 +7,13 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int colorScheme = 0;
     return GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: MaterialApp.router(
-          routerConfig: router,
-        ));
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: MaterialApp.router(
+        routerConfig: router,
+        theme: colorScheme == 0 ? ThemeData.light() : ThemeData.dark(),
+      ),
+    );
   }
 }

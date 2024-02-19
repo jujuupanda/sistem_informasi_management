@@ -30,9 +30,6 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Main Page"),
-      ),
       // body: const MainPageStudent(),
       body: role == "1" ? const MainPageTeacher() : const MainPageStudent(),
     );

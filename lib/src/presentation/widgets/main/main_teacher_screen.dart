@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import 'main_widget.dart';
+import '../general/general_widget.dart';
 
 class MainPageTeacher extends StatelessWidget {
   const MainPageTeacher({
@@ -10,9 +10,9 @@ class MainPageTeacher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Center(
           child: Text("Guru"),
         ),
