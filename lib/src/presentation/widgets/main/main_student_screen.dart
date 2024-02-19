@@ -197,7 +197,7 @@ class _MainPageStudentState extends State<MainPageStudent> {
                       Container(
                         padding: const EdgeInsets.all(8),
                         color: Colors.teal[100],
-                        child: const Text("He'd have you all unravel at the"),
+                        child: const Text("He'd hawve you all unravel at the"),
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
