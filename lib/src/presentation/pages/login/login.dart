@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:sistem_informasi_sekolah/src/data/bloc/auth/auth_bloc.dart';
-import 'package:sistem_informasi_sekolah/src/routes/name_routes.dart';
 
+import '../../../data/bloc/auth/auth_bloc.dart';
+import '../../../routes/name_routes.dart';
 import '../../widgets/login/login_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccessState) {
-          context.goNamed(Routes().main);
+          context.goNamed(Routes.main);
         }
       },
       child: Scaffold(
@@ -51,14 +51,26 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Gap(40),
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: LoginTitle(),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      borderRadius: BorderRadius.circular(8),
+                      onTap: () {
+                        context.pop();
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.all(4),
+                        child: Icon(Icons.arrow_back_ios_rounded),
+                      ),
+                    ),
+                    const Gap(20),
+                    const Expanded(child: LoginTitle())
+                  ],
                 ),
-                const Gap(20),
+                const Gap(80),
                 const LoginImage(),
-                const Gap(20),
+                const Gap(40),
                 TextFormField(
                   controller: _emailCtrl,
                   decoration: InputDecoration(

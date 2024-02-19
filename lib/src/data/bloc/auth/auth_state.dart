@@ -15,9 +15,19 @@ class AuthLoadingState extends AuthState {
   List<Object> get props => [];
 }
 
+//AUTHORIZATION
+class IsAuthorizedState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class UnAuthorizedState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
 // LOGIN
 class AuthLoginSuccessState extends AuthState {
-
   @override
   List<Object> get props => [];
 }

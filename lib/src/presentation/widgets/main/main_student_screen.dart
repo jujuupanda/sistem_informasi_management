@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import 'logout_button.dart';
+import 'main_widget.dart';
+
 
 class MainPageStudent extends StatelessWidget {
   const MainPageStudent({

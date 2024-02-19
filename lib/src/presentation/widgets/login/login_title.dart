@@ -9,7 +9,7 @@ class LoginTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text(
       "Masuk",
-      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 32),
+      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
     );
   }
 }

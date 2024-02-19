@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:sistem_informasi_sekolah/src/presentation/widgets/main/logout_button.dart';
+
+import 'main_widget.dart';
 
 class MainPageTeacher extends StatelessWidget {
   const MainPageTeacher({
