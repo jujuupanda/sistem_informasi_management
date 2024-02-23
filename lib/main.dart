@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sistem_informasi_sekolah/src/data/bloc/event/event_bloc.dart';
 
 import 'app.dart';
 import 'src/data/bloc/auth/auth_bloc.dart';
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(repository: Repository()),
-        )
+        ),
+        BlocProvider(
+          create: (context) => EventBloc(repository: Repository()),
+        ),
       ],
       child: const App(),
     );

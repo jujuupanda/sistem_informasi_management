@@ -2,6 +2,7 @@ export 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../repositories/repository.dart';
@@ -17,6 +18,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthInitialEvent>(_authInitialEvent);
     on<AuthorizationEvent>(_authorizationEvent);
     on<AuthLoginEvent>(_authLoginEvent);
+    on<AuthRegisterEvent>(_authRegisterEvent);
+    on<AuthLogoutEvent>(_authLogoutEvent);
   }
 
   _authInitialEvent(AuthInitialEvent event, Emitter emit) {
@@ -26,9 +29,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _authorizationEvent(AuthorizationEvent event, Emitter emit) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userToken = prefs.getString("token");
-
     if (userToken != null) {
-      emit(IsAuthorizedState());
+      final isExpired = await _checkExpiredToken(userToken);
+      if (isExpired == true) {
+        _removeUserToken();
+        emit(UnAuthorizedState());
+      } else {
+        emit(IsAuthorizedState());
+      }
     } else {
       emit(UnAuthorizedState());
     }
@@ -38,7 +46,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoadingState());
     try {
       await repository.auth.login(event.username, event.password);
-      // final role = repository.auth.decodeJwt(user);
       if (repository.auth.token != "") {
         _saveUserToken(repository.auth.token);
         emit(AuthLoginSuccessState());
@@ -50,7 +57,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  //Function for save token after success login
+  _authRegisterEvent(AuthRegisterEvent event, Emitter emit) {}
+
+  _authLogoutEvent(AuthLogoutEvent event, Emitter emit) async {
+    emit(AuthLoadingState());
+    try {
+      _removeUserToken();
+      emit(AuthLogoutSuccessState());
+    } catch (error) {
+      emit(AuthLogoutErrorState());
+    }
+  }
+
+  ///Function for save token after success login
   _saveUserToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     Map<String, dynamic> userToken = repository.auth.decodedJWT(token);
@@ -58,14 +77,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await prefs.setString("role", userToken["role"]);
   }
 
-  _checkLogin() async {
+  ///Function for remove token user
+  _removeUserToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final userToken = prefs.getString("token");
+    await prefs.clear();
+  }
 
-    if (userToken != "") {
-      return 1;
-    } else {
-      return 0;
-    }
+  ///Function for check token is expired or not
+  _checkExpiredToken(String token) async {
+    final DateTime dateNow = DateTime.now();
+    final DateTime jwtExp = JwtDecoder.getExpirationDate(token);
+    final bool isExpired = jwtExp.isBefore(dateNow);
+    return isExpired;
   }
 }

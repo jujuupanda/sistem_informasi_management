@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-
-import '../general/general_widget.dart';
+part of 'main_widget.dart';
 
 class MainPageTeacher extends StatelessWidget {
   const MainPageTeacher({
