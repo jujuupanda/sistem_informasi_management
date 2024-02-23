@@ -69,10 +69,10 @@ class _MainPageStudentState extends State<MainPageStudent> {
                     const LatestNews(),
                     GridView.count(
                       crossAxisCount: 3,
-                      mainAxisSpacing: 10,
+                      mainAxisSpacing: 15,
                       crossAxisSpacing: 30,
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 32, horizontal: 8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 32, horizontal: 12),
                       physics: const NeverScrollableScrollPhysics(),
                       // to disable GridView's scrolling
                       shrinkWrap: true,

@@ -8,7 +8,7 @@ part 'auth_repository.dart';
 part 'event_repository.dart';
 
 class Repository {
-  final baseUrlApp = "http://172.16.4.179:4000";
+  final baseUrlApp = "http://172.16.2.254:4000";
 
   final auth = Auth();
   final event = Event();

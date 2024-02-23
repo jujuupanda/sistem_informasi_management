@@ -40,3 +40,28 @@ class AuthLoginErrorState extends AuthState {
   @override
   List<Object> get props => [error];
 }
+
+// REGISTER
+class AuthRegisterSuccessState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class AuthRegisterErrorState extends AuthState {
+  final String error;
+
+  const AuthRegisterErrorState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+//LOGOUT
+class AuthLogoutSuccessState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class AuthLogoutErrorState extends AuthState {
+  @override
+  List<Object> get props => [];
+}

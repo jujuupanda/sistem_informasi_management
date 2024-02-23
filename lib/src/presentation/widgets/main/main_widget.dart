@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sistem_informasi_sekolah/src/data/bloc/event/event_bloc.dart';
 
-import '../../../data/models/event_model.dart';
+import '../../../data/bloc/event/event_bloc.dart';
 import '../../../utils/utils.dart';
 import '../general/general_widget.dart';
 

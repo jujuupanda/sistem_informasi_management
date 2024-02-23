@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'login_widget.dart';
 
 class LoginImage extends StatelessWidget {
   const LoginImage({
@@ -7,12 +7,11 @@ class LoginImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 120,
+    return Image.asset(
+      imageNoConn,
+      scale: 1,
       width: 120,
-      decoration: BoxDecoration(
-          color: Colors.grey, borderRadius: BorderRadius.circular(90)),
-      child: const Center(child: Text("image.png")),
+      height: 120,
     );
   }
 }

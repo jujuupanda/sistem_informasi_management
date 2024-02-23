@@ -18,6 +18,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthInitialEvent>(_authInitialEvent);
     on<AuthorizationEvent>(_authorizationEvent);
     on<AuthLoginEvent>(_authLoginEvent);
+    on<AuthRegisterEvent>(_authRegisterEvent);
+    on<AuthLogoutEvent>(_authLogoutEvent);
   }
 
   _authInitialEvent(AuthInitialEvent event, Emitter emit) {
@@ -52,6 +54,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     } catch (err) {
       print(err);
+    }
+  }
+
+  _authRegisterEvent(AuthRegisterEvent event, Emitter emit) {}
+
+  _authLogoutEvent(AuthLogoutEvent event, Emitter emit) async {
+    emit(AuthLoadingState());
+    try {
+      _removeUserToken();
+      emit(AuthLogoutSuccessState());
+    } catch (error) {
+      emit(AuthLogoutErrorState());
     }
   }
 

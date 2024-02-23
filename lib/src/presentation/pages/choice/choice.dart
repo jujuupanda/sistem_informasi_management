@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:sistem_informasi_sekolah/src/utils/assets.dart';
 
 import '../../../routes/name_routes.dart';
 import '../../widgets/choice/choice_widget.dart';
@@ -27,13 +28,11 @@ class _ChoicePageState extends State<ChoicePage> {
                 bottom: MediaQuery.of(context).size.height / 3,
               ),
               child: Center(
-                child: Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(45),
-                    color: Colors.grey,
-                  ),
+                child: Image.asset(
+                  imageNoConn,
+                  scale: 1,
+                  width: 150,
+                  height: 150,
                 ),
               ),
             ),

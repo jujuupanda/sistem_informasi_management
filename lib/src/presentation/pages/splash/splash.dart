@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:sistem_informasi_sekolah/src/data/bloc/auth/auth_bloc.dart';
+import 'package:sistem_informasi_sekolah/src/utils/assets.dart';
 
 import '../../../routes/name_routes.dart';
 
@@ -56,15 +57,12 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Container(
-                height: 120,
-                width: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(45),
-                  color: Colors.grey,
-                ),
-              ),
-            )
+                child: Image.asset(
+              imageNoConn,
+              scale: 1,
+              width: 150,
+              height: 150,
+            ))
           ],
         ),
       ),

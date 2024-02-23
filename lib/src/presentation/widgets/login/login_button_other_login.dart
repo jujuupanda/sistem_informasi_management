@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'login_widget.dart';
 
 class ButtonOtherLogin extends StatelessWidget {
   const ButtonOtherLogin({

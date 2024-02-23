@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 
@@ -15,23 +14,30 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late TextEditingController _emailCtrl;
+  late TextEditingController _usernameCtrl;
   late TextEditingController _passwordCtrl;
   late AuthBloc _authBloc;
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   loginButton() {
     _authBloc = context.read<AuthBloc>();
     _authBloc.add(
       AuthLoginEvent(
-        _emailCtrl.text.toString(),
+        _usernameCtrl.text.toString(),
         _passwordCtrl.text.toString(),
       ),
     );
   }
 
+  _initialAuth() {
+    _authBloc = context.read<AuthBloc>();
+    _authBloc.add(AuthInitialEvent());
+  }
+
   @override
   void initState() {
-    _emailCtrl = TextEditingController();
+    _usernameCtrl = TextEditingController();
     _passwordCtrl = TextEditingController();
     super.initState();
   }
@@ -42,95 +48,153 @@ class _LoginPageState extends State<LoginPage> {
       listener: (context, state) {
         if (state is AuthLoginSuccessState) {
           context.goNamed(Routes.main);
+          _initialAuth();
         }
       },
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(40),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        body: Stack(
+          children: [
+            Column(
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      borderRadius: BorderRadius.circular(8),
-                      onTap: () {
-                        context.pop();
-                      },
-                      child: const Padding(
-                        padding: EdgeInsets.all(4),
-                        child: Icon(Icons.arrow_back_ios_rounded),
+                const Gap(50),
+                const HeaderLogin(
+                  name: "Masuk",
+                ),
+                const Divider(
+                  height: 10,
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
+                Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      return await Future.delayed(
+                        const Duration(seconds: 1),
+                        () {
+                          _initialAuth();
+                        },
+                      );
+                    },
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(24),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Gap(40),
+                              const LoginImage(),
+                              const Gap(60),
+                              TextFormField(
+                                controller: _usernameCtrl,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: "Username",
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Username tidak boleh kosong!';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              ),
+                              const Gap(20),
+                              TextFormField(
+                                controller: _passwordCtrl,
+                                obscureText: true,
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  hintText: "Kata Sandi",
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Password tidak boleh kosong!';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                              ),
+                              const Align(
+                                alignment: Alignment.centerRight,
+                                child: ForgetPasswordButton(),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: BlocBuilder<AuthBloc, AuthState>(
+                                  builder: (context, state) {
+                                    if (state is AuthLoginErrorState) {
+                                      return Text(
+                                        state.error,
+                                        style: const TextStyle(
+                                            color: Colors.redAccent),
+                                      );
+                                    } else {
+                                      return const Padding(
+                                        padding: EdgeInsets.all(7),
+                                        child: SizedBox(),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                              ButtonLogin(
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    loginButton();
+                                  }
+                                },
+                              ),
+                              const Gap(15),
+                              const DividerLogin(),
+                              const Gap(15),
+                              const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ButtonOtherLogin(),
+                                  Gap(20),
+                                  ButtonOtherLogin(),
+                                  Gap(20),
+                                  ButtonOtherLogin(),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                    const Gap(20),
-                    const Expanded(child: LoginTitle())
-                  ],
-                ),
-                const Gap(80),
-                const LoginImage(),
-                const Gap(40),
-                TextFormField(
-                  controller: _emailCtrl,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: "Email",
                   ),
                 ),
-                const Gap(20),
-                TextFormField(
-                  controller: _passwordCtrl,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    hintText: "Kata Sandi",
-                  ),
-                ),
-                const Align(
-                    alignment: Alignment.centerRight,
-                    child: ForgetPasswordButton()),
-                const Gap(20),
-                ButtonLogin(onTap: loginButton),
-                const Gap(15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Expanded(
-                      child: Divider(
-                        color: Colors.black,
-                        thickness: 1,
-                        endIndent: 10,
-                      ),
-                    ),
-                    Text("atau"),
-                    Expanded(
-                      child: Divider(
-                        color: Colors.black,
-                        thickness: 1,
-                        indent: 10,
-                      ),
-                    ),
-                  ],
-                ),
-                const Gap(15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    ButtonOtherLogin(),
-                    Gap(20),
-                    ButtonOtherLogin(),
-                    Gap(20),
-                    ButtonOtherLogin(),
-                  ],
-                )
               ],
             ),
-          ),
+            BlocBuilder<AuthBloc, AuthState>(
+              builder: (context, state) {
+                if (state is AuthLoadingState) {
+                  return Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: const Color(0x4DD5D5D5),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blueAccent,
+                          strokeWidth: 5,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox();
+              },
+            )
+          ],
         ),
       ),
     );

@@ -30,10 +30,11 @@ class _LatestNewsState extends State<LatestNews> {
             builder: (context, state) {
               if (state is EventGetEventSuccessState) {
                 if (state.listEvents.isNotEmpty) {
-                  return ConstrainedBox(
+                  return Container(
                     constraints: const BoxConstraints(
-                      maxHeight: 150,
+                      maxHeight: 100,
                     ),
+
                     ///Add date check for newest event within 7days
                     child: ListView.builder(
                       shrinkWrap: false,

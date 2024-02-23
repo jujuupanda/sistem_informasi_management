@@ -21,12 +21,16 @@ class MainMenuList extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-                child: Image.asset(
-              imageNoConn,
-              height: 50,
-              width: 50,
-            )),
-            Text(name)
+              child: Image.asset(
+                imageNoConn,
+                height: 50,
+                width: 50,
+              ),
+            ),
+            Text(
+              name,
+              style: const TextStyle(fontSize: 12),
+            )
           ],
         ),
       ),
