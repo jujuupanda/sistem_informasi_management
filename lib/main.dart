@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sistem_informasi_sekolah/src/data/bloc/event/event_bloc.dart';
 
 import 'app.dart';
 import 'src/data/bloc/auth/auth_bloc.dart';
+import 'src/data/bloc/event/event_bloc.dart';
+import 'src/data/bloc/user/user_bloc.dart';
 import 'src/data/repositories/repository.dart';
 
 void main() {
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => EventBloc(repository: Repository()),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc(repository: Repository()),
         ),
       ],
       child: const App(),

@@ -1,12 +1,12 @@
 part of 'main_widget.dart';
 
 class UserInfoMain extends StatelessWidget {
-  final String name;
+  final String? name;
   final String? noId;
   final String? className;
 
   const UserInfoMain({
-    required this.name,
+    this.name,
     this.noId,
     this.className,
     super.key,
@@ -18,21 +18,21 @@ class UserInfoMain extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         Text(
-          name,
+          name == "" ? "Nama Pengguna" : name!,
           style: GoogleFonts.openSans(
             fontSize: 16,
             fontWeight: FontWeight.w500,
           ),
         ),
         Text(
-          noId != null ? noId! : "",
+          noId == "" ? "No ID/Pengenal" : noId!,
           style: GoogleFonts.openSans(
             fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
         Text(
-          className != null ? className! : "",
+          className == "" ? "Jurusan/Kelas" : className!,
           style: GoogleFonts.openSans(
             fontSize: 12,
             fontWeight: FontWeight.w500,

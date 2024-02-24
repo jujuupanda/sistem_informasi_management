@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../data/bloc/auth/auth_bloc.dart';
 import '../../../routes/name_routes.dart';
+import '../../widgets/general/general_widget.dart';
 import '../../widgets/login/login_widget.dart';
 
 class LoginPage extends StatefulWidget {
@@ -88,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                               const Gap(60),
                               TextFormField(
                                 controller: _usernameCtrl,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -107,7 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                               TextFormField(
                                 controller: _passwordCtrl,
                                 obscureText: true,
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -177,23 +179,13 @@ class _LoginPageState extends State<LoginPage> {
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is AuthLoadingState) {
-                  return Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color: const Color(0x4DD5D5D5),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.blueAccent,
-                          strokeWidth: 5,
-                        ),
-                      ),
-                    ),
+                  return const Center(
+                    child: LoadingWidget(),
                   );
                 }
                 return const SizedBox();
               },
-            )
+            ),
           ],
         ),
       ),

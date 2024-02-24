@@ -13,15 +13,22 @@ class _MainPageStudentState extends State<MainPageStudent> {
   late String dateString;
   late DateTime dateNow;
   late EventBloc _eventBloc;
+  late UserBloc _userBloc;
 
   _getEventForUser() {
     _eventBloc = context.read<EventBloc>();
     _eventBloc.add(EventGetEventForUserEvent());
   }
 
+  _getUser() {
+    _userBloc = context.read<UserBloc>();
+    _userBloc.add(UserGetUserEvent());
+  }
+
   @override
   void initState() {
     _getEventForUser();
+    _getUser();
     dateNow = DateTime.now();
     dateString = currentTime(dateNow);
     super.initState();
@@ -39,6 +46,7 @@ class _MainPageStudentState extends State<MainPageStudent> {
             onRefresh: () async {
               return await Future.delayed(const Duration(seconds: 1), () {
                 _getEventForUser();
+                _getUser();
               });
             },
             child: SingleChildScrollView(
@@ -49,18 +57,36 @@ class _MainPageStudentState extends State<MainPageStudent> {
                     const Gap(15),
                     DateTimeMain(dateString: dateString),
                     const Gap(20),
-                    const Row(
+                    Row(
                       children: [
-                        IconMain(icon: imageNoConn),
+                        const IconMain(icon: imageNoConn),
                         Expanded(
-                          child: UserInfoMain(
-                            name: "Julio Adi Putra",
-                            noId: "1915061008",
-                            className: "Teknik Informatika",
+                          child: BlocBuilder<UserBloc, UserState>(
+                            builder: (context, state) {
+                              if (state is UserGetUserSuccessState) {
+                                final userData = state.userData;
+                                return UserInfoMain(
+                                  name: userData.name != null
+                                      ? userData.name!
+                                      : "",
+                                  noId: userData.nisn != null
+                                      ? userData.nisn!
+                                      : "",
+                                  className: userData.classes != null
+                                      ? userData.classes!
+                                      : "",
+                                );
+                              }
+                              return const UserInfoMain(
+                                name: "Nama Pengguna",
+                                noId: "No ID/Pengenal",
+                                className: "Jurusan/Kelas",
+                              );
+                            },
                           ),
                         ),
-                        Gap(15),
-                        IconMain(icon: imageNoConn),
+                        const Gap(15),
+                        const IconMain(icon: imageNoConn),
                       ],
                     ),
                     const Gap(25),
@@ -79,7 +105,9 @@ class _MainPageStudentState extends State<MainPageStudent> {
                       // You won't see infinite size error
                       children: [
                         MainMenuList(
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(Routes.event);
+                          },
                           name: "Pengumuman",
                         ),
                         MainMenuList(

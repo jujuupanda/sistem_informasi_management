@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'choice_widget.dart';
 
 class ButtonChoice extends StatefulWidget {
   final VoidCallback? onTap;

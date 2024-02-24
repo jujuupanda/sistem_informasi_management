@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sistem_informasi_sekolah/src/data/bloc/auth/auth_bloc.dart';
-import 'package:sistem_informasi_sekolah/src/utils/assets.dart';
 
+import '../../../data/bloc/auth/auth_bloc.dart';
 import '../../../routes/name_routes.dart';
+import '../../../utils/utils.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
