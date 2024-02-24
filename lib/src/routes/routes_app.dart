@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sistem_informasi_sekolah/src/data/models/event_model.dart';
+import 'package:sistem_informasi_sekolah/src/presentation/pages/profile/user_info.dart';
 
 import '../presentation/pages/choice/choice.dart';
 import '../presentation/pages/event/detail_event.dart';
@@ -86,6 +87,15 @@ final GoRouter router = GoRouter(
               builder: (context, state) {
                 return const ProfilePage();
               },
+              routes: [
+                GoRoute(
+                  path: 'userInfo',
+                  name: Routes.userInfo,
+                  builder: (context, state) {
+                    return const UserInfoPage();
+                  },
+                ),
+              ]
             ),
           ],
         ),

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sistem_informasi_sekolah/src/utils/assets.dart';
 
 import '../../../routes/name_routes.dart';
+import '../../../utils/utils.dart';
 import '../../widgets/choice/choice_widget.dart';
 
 class ChoicePage extends StatefulWidget {

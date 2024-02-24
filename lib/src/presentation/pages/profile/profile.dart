@@ -224,7 +224,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             const Gap(10),
                             ProfileMenu(
                               name: "Profile",
-                              onTap: () {},
+                              onTap: () {
+                                context.pushNamed(Routes.userInfo);
+                              },
                               icon: Icons.person_rounded,
                             ),
                             ProfileMenu(

@@ -10,6 +10,7 @@ abstract class Routes {
    static const splash = "splash";
    static const choice = "choice";
    static const profile = "profile";
+   static const userInfo = "userInfo";
    static const presence = "presence";
 
 }
