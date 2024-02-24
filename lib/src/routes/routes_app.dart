@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
-import 'package:sistem_informasi_sekolah/src/presentation/pages/event/event.dart';
+import 'package:sistem_informasi_sekolah/src/data/models/event_model.dart';
 
 import '../presentation/pages/choice/choice.dart';
+import '../presentation/pages/event/detail_event.dart';
+import '../presentation/pages/event/event.dart';
 import '../presentation/pages/login/login.dart';
 import '../presentation/pages/main/main.dart';
 import '../presentation/pages/navigation_bar/navigation_bar.dart';
+import '../presentation/pages/presence/presence.dart';
 import '../presentation/pages/profile/profile.dart';
 import '../presentation/pages/splash/splash.dart';
 import 'name_routes.dart';
@@ -27,7 +29,9 @@ final GoRouter router = GoRouter(
     ///navigation with parent widget
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
-        return BotNavBar(navigationShell: navigationShell,);
+        return BotNavBar(
+          navigationShell: navigationShell,
+        );
       },
       branches: <StatefulShellBranch>[
         StatefulShellBranch(
@@ -39,6 +43,25 @@ final GoRouter router = GoRouter(
               builder: (context, state) {
                 return const MainPage();
               },
+              routes: [
+                GoRoute(
+                    path: 'event',
+                    name: Routes.event,
+                    builder: (context, state) {
+                      return const EventPage();
+                    },
+                    routes: [
+                      GoRoute(
+                        path: 'detailEvent',
+                        name: Routes.detailEvent,
+                        builder: (context, state) {
+                          return DetailEventPage(
+                            eventModel: state.extra as EventModel,
+                          );
+                        },
+                      ),
+                    ]),
+              ],
             ),
           ],
         ),
@@ -46,10 +69,10 @@ final GoRouter router = GoRouter(
           navigatorKey: _navigatorEvent,
           routes: <RouteBase>[
             GoRoute(
-              path: '/event',
-              name: Routes.event,
+              path: '/presence',
+              name: Routes.presence,
               builder: (context, state) {
-                return const EventPage();
+                return const PresencePage();
               },
             ),
           ],

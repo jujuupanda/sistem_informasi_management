@@ -7,7 +7,10 @@ class UserModel {
       this.nisn, 
       this.name, 
       this.email, 
-      this.address,});
+      this.address,
+      this.classes,
+      this.image,
+  });
 
   UserModel.fromJson(dynamic json) {
     id = json['id'];
@@ -18,15 +21,19 @@ class UserModel {
     name = json['name'];
     email = json['email'];
     address = json['address'];
+    classes = json['class'];
+    image = json['image'];
   }
   int? id;
   String? username;
   String? password;
   String? role;
-  dynamic nisn;
+  String? nisn;
   String? name;
-  dynamic email;
-  dynamic address;
+  String? email;
+  String? address;
+  String? classes;
+  String? image;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -38,6 +45,8 @@ class UserModel {
     map['name'] = name;
     map['email'] = email;
     map['address'] = address;
+    map['classes'] = classes;
+    map['image'] = image;
     return map;
   }
 

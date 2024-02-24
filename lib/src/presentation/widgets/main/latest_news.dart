@@ -30,6 +30,7 @@ class _LatestNewsState extends State<LatestNews> {
             builder: (context, state) {
               if (state is EventGetEventSuccessState) {
                 if (state.listEvents.isNotEmpty) {
+                  final listEvents = state.listEvents;
                   return Container(
                     constraints: const BoxConstraints(
                       maxHeight: 100,
@@ -39,14 +40,19 @@ class _LatestNewsState extends State<LatestNews> {
                     child: ListView.builder(
                       shrinkWrap: false,
                       padding: EdgeInsets.zero,
-                      itemCount: state.listEvents.length,
+                      itemCount: listEvents.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(
+                              Routes.detailEvent,
+                              extra: listEvents[index],
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              state.listEvents[index].eventName!,
+                              listEvents[index].eventName!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.openSans(

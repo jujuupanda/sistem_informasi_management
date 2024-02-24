@@ -75,6 +75,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Map<String, dynamic> userToken = repository.auth.decodedJWT(token);
     await prefs.setString("token", token);
     await prefs.setString("role", userToken["role"]);
+    await prefs.setString("username", userToken["username"]);
   }
 
   ///Function for remove token user
