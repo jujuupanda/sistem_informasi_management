@@ -23,4 +23,16 @@ class AuthLoginEvent extends AuthEvent {
 
 class AuthLogoutEvent extends AuthEvent {}
 
-class AuthRegisterEvent extends AuthEvent {}
+class AuthRegisterEvent extends AuthEvent {
+  final String username;
+  final String password;
+  final String name;
+  final String role;
+
+  const AuthRegisterEvent(
+    this.username,
+    this.password,
+    this.name,
+    this.role,
+  );
+}

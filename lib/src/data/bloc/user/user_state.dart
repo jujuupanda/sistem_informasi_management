@@ -28,6 +28,20 @@ class UserGetUserErrorState extends UserState {
   List<Object> get props => [];
 }
 
+class UserAddUserSuccessState extends UserState {
+  @override
+  List<Object> get props => [];
+}
+
+class UserAddUserErrorState extends UserState {
+  final String error;
+
+  const UserAddUserErrorState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
 class UserEditUserSuccessState extends UserState {
   @override
   List<Object> get props => [];

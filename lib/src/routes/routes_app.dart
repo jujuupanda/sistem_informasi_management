@@ -10,6 +10,7 @@ import '../presentation/pages/main/main.dart';
 import '../presentation/pages/navigation_bar/navigation_bar.dart';
 import '../presentation/pages/presence/presence.dart';
 import '../presentation/pages/profile/profile.dart';
+import '../presentation/pages/register/register.dart';
 import '../presentation/pages/splash/splash.dart';
 import 'name_routes.dart';
 
@@ -116,6 +117,13 @@ final GoRouter router = GoRouter(
             name: Routes.login,
             builder: (context, state) {
               return const LoginPage();
+            },
+          ),
+          GoRoute(
+            path: 'register',
+            name: Routes.register,
+            builder: (context, state) {
+              return const RegisterPage();
             },
           ),
           //Route for register

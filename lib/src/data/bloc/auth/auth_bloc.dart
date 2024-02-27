@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthInitialEvent>(_authInitialEvent);
     on<AuthorizationEvent>(_authorizationEvent);
     on<AuthLoginEvent>(_authLoginEvent);
-    on<AuthRegisterEvent>(_authRegisterEvent);
     on<AuthLogoutEvent>(_authLogoutEvent);
   }
 
@@ -52,13 +51,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         emit(AuthLoginErrorState(repository.auth.error));
       }
-    } catch (err) {
-      print(err);
-      print(err);
+    } catch (error) {
+      throw Exception(error);
     }
   }
 
-  _authRegisterEvent(AuthRegisterEvent event, Emitter emit) {}
 
   _authLogoutEvent(AuthLogoutEvent event, Emitter emit) async {
     emit(AuthLoadingState());

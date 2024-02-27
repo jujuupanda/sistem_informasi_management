@@ -28,6 +28,4 @@ class Auth {
     Map<String, dynamic> userInfo = JwtDecoder.decode(token);
     return userInfo;
   }
-
-  register() {}
 }
