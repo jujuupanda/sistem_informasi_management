@@ -1,6 +1,6 @@
-part of 'login_widget.dart';
+part of 'general_widget.dart';
 
-class ButtonLogin extends StatefulWidget {
+class ButtonLogin extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ButtonLogin({
@@ -8,11 +8,6 @@ class ButtonLogin extends StatefulWidget {
     super.key,
   });
 
-  @override
-  State<ButtonLogin> createState() => _ButtonLoginState();
-}
-
-class _ButtonLoginState extends State<ButtonLogin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +20,7 @@ class _ButtonLoginState extends State<ButtonLogin> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: widget.onTap,
+          onTap: onTap,
           borderRadius: BorderRadius.circular(15),
           splashColor: Colors.blue,
           child: const Center(

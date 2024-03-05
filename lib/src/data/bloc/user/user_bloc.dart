@@ -17,10 +17,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc({required this.repository}) : super(UserInitialState()) {
     on<UserInitialEvent>(_userInitialEvent);
     on<UserGetUserEvent>(_userGetUserEvent);
+    on<UserAddUserEvent>(_userAddUserEvent);
   }
 
   _userInitialEvent(UserInitialEvent event, Emitter emit) {
     emit(UserInitialState());
+  }
+
+  _userAddUserEvent(UserAddUserEvent event, Emitter emit) async {
+    emit(UserLoadingState());
+    try {
+      await repository.user.addUser(
+        event.username,
+        event.password,
+        event.name,
+        event.role,
+      );
+      if (repository.user.error == "") {
+        emit(UserAddUserSuccessState());
+      } else {
+        emit(UserAddUserErrorState(repository.user.error));
+      }
+    } catch (error) {
+      throw Exception(error);
+    }
   }
 
   _userGetUserEvent(UserGetUserEvent event, Emitter emit) async {

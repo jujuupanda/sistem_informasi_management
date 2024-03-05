@@ -69,7 +69,9 @@ class _ChoicePageState extends State<ChoicePage> {
                         buttonName: "Masuk"),
                     const Gap(10),
                     ButtonChoice(
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(Routes.register);
+                      },
                       buttonName: "Daftar",
                     ),
                   ],

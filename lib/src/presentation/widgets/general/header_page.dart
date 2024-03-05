@@ -1,4 +1,5 @@
 part of 'general_widget.dart';
+
 class HeaderPage extends StatelessWidget {
   final String name;
 
@@ -28,8 +29,8 @@ class HeaderPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     name,
-                    style:
-                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 24),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500, fontSize: 24),
                   ),
                 ),
               ),

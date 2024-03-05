@@ -5,6 +5,7 @@ export 'package:go_router/go_router.dart';
 abstract class Routes {
    static const main = "main";
    static const login = "login";
+   static const register = "register";
    static const event = "event";
    static const detailEvent = "detailEvent";
    static const splash = "splash";

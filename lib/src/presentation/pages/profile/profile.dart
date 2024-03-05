@@ -139,146 +139,146 @@ class _ProfilePageState extends State<ProfilePage> {
         }
       },
       child: Scaffold(
-        body: Stack(
-          children: [
-            Column(
-              children: [
-                Container(
-                  height: 90,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
+        body: BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state is UserLoadingState) {
+              return const Center(
+                child: LoadingWidget(),
+              );
+            }
+            if (state is UserGetUserSuccessState) {
+              return Column(
+                children: [
+                  Container(
+                    height: 90,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                      color: Colors.blueAccent,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
                     ),
-                  ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        "Saya",
-                        style: GoogleFonts.openSans(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          "Saya",
+                          style: GoogleFonts.openSans(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      return await Future.delayed(const Duration(seconds: 1),
-                          () {
-                        _getUser();
-                      });
-                    },
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            const Gap(42),
-                            Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(90),
-                                border:
-                                    Border.all(width: 1, color: Colors.grey),
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        return await Future.delayed(const Duration(seconds: 1),
+                            () {
+                          _getUser();
+                        });
+                      },
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              const Gap(42),
+                              Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(90),
+                                  border:
+                                      Border.all(width: 1, color: Colors.grey),
+                                ),
+                                child: Image.asset(
+                                  imageNoConn,
+                                  scale: 1,
+                                ),
                               ),
-                              child: Image.asset(
-                                imageNoConn,
-                                scale: 1,
-                              ),
-                            ),
-                            const Gap(20),
-                            BlocBuilder<UserBloc, UserState>(
-                              builder: (context, state) {
-                                if (state is UserGetUserSuccessState) {
+                              const Gap(20),
+                              BlocBuilder<UserBloc, UserState>(
+                                builder: (context, state) {
+                                  if (state is UserGetUserSuccessState) {
+                                    return Text(
+                                      state.userData.name!,
+                                      style: GoogleFonts.openSans(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    );
+                                  }
                                   return Text(
-                                    state.userData.name!,
+                                    "Nama Pengguna",
                                     style: GoogleFonts.openSans(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   );
-                                }
-                                return Text(
-                                  "Nama Pengguna",
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                );
-                              },
-                            ),
-                            const Gap(5),
-                            const Divider(
-                              thickness: 1,
-                              color: Colors.grey,
-                            ),
-                            const Gap(10),
-                            ProfileMenu(
-                              name: "Profile",
-                              onTap: () {
-                                context.pushNamed(Routes.userInfo);
-                              },
-                              icon: Icons.person_rounded,
-                            ),
-                            ProfileMenu(
-                              name: "Kata Sandi",
-                              onTap: () {},
-                              icon: Icons.password_rounded,
-                            ),
-                            ProfileMenu(
-                              name: "Pengaturan",
-                              onTap: () {},
-                              icon: Icons.settings_rounded,
-                            ),
-                            ProfileMenu(
-                              name: "Notifikasi",
-                              onTap: () {},
-                              icon: Icons.notifications_on_rounded,
-                            ),
-                            ProfileMenu(
-                              name: "Mode Gelap",
-                              onTap: () {},
-                              icon: Icons.dark_mode_rounded,
-                            ),
-                            ProfileMenu(
-                              name: "Bantuan",
-                              onTap: () {},
-                              icon: Icons.help,
-                            ),
-                            const Gap(30),
-                            ProfileMenu(
-                              name: "Keluar",
-                              onTap: _popWhenExit,
-                              icon: Icons.logout_rounded,
-                            ),
-                          ],
+                                },
+                              ),
+                              const Gap(5),
+                              const Divider(
+                                thickness: 1,
+                                color: Colors.grey,
+                              ),
+                              const Gap(10),
+                              ProfileMenu(
+                                name: "Profile",
+                                onTap: () {
+                                  context.pushNamed(Routes.userInfo);
+                                },
+                                icon: Icons.person_rounded,
+                              ),
+                              ProfileMenu(
+                                name: "Kata Sandi",
+                                onTap: () {},
+                                icon: Icons.password_rounded,
+                              ),
+                              ProfileMenu(
+                                name: "Pengaturan",
+                                onTap: () {},
+                                icon: Icons.settings_rounded,
+                              ),
+                              ProfileMenu(
+                                name: "Notifikasi",
+                                onTap: () {},
+                                icon: Icons.notifications_on_rounded,
+                              ),
+                              ProfileMenu(
+                                name: "Mode Gelap",
+                                onTap: () {},
+                                icon: Icons.dark_mode_rounded,
+                              ),
+                              ProfileMenu(
+                                name: "Bantuan",
+                                onTap: () {},
+                                icon: Icons.help,
+                              ),
+                              const Gap(30),
+                              ProfileMenu(
+                                name: "Keluar",
+                                onTap: _popWhenExit,
+                                icon: Icons.logout_rounded,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            BlocBuilder<UserBloc, UserState>(
-              builder: (context, state) {
-                if (state is UserLoadingState) {
-                  return const Center(
-                    child: LoadingWidget(),
-                  );
-                }
-                return const SizedBox();
-              },
-            )
-          ],
+                ],
+              );
+            }
+            return const Center(
+              child: LoadingWidget(),
+            );
+          },
         ),
       ),
     );

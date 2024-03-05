@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    _initialAuth();
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoginSuccessState) {
@@ -56,24 +57,11 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Column(
               children: [
-                const Gap(50),
-                const HeaderLogin(
-                  name: "Masuk",
-                ),
-                const Divider(
-                  height: 10,
-                  thickness: 1,
-                  color: Colors.grey,
-                ),
+                const HeaderPage(name: "Login"),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () async {
-                      return await Future.delayed(
-                        const Duration(seconds: 1),
-                        () {
-                          _initialAuth();
-                        },
-                      );
+                      _initialAuth();
                     },
                     child: SingleChildScrollView(
                       child: Padding(
