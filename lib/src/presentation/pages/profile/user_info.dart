@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
+import '../../../data/bloc/user/user_bloc.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/general/general_widget.dart';
 import '../../widgets/profile/profile_widget.dart';
@@ -24,46 +26,65 @@ class _UserInfoPageState extends State<UserInfoPage> {
           Expanded(
             child: SingleChildScrollView(
               padding: EdgeInsets.zero,
-              child: Column(
-                children: [
-                  Container(
-                    height: 120,
-                    width: 120,
-                    decoration: const BoxDecoration(),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: Image.asset(
-                        imageWarnConn,
-                        scale: 1,
-                      ),
-                    ),
-                  ),
-                  const Gap(30),
-                  UserInfoProfile(
-                    onTap: () {},
-                    name: "Julio Adi Putra",
-                    icon: Icons.person_rounded,
-                  ),
-                  UserInfoProfile(
-                    onTap: () {},
-                    name: "1915061008",
-                    icon: Icons.credit_card_rounded,
-                  ),
-                  UserInfoProfile(
-                    onTap: () {},
-                    name: "Teknik Informatika",
-                    icon: Icons.class_rounded,
-                  ),
-                  UserInfoProfile(
-                    onTap: () {},
-                    name: "imkenarok@gmail.com",
-                    icon: Icons.email_rounded,
-                  ),
-                  UserInfoProfile(
-                      onTap: () {},
-                      name: "Tanjung Bintang",
-                      icon: Icons.location_on_rounded)
-                ],
+              child: BlocBuilder<UserBloc, UserState>(
+                builder: (context, state) {
+                  if (state is UserGetUserSuccessState) {
+                    final userData = state.userData;
+                    return Column(
+                      children: [
+                        Container(
+                          height: 120,
+                          width: 120,
+                          decoration: const BoxDecoration(),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4),
+                            child: Image.asset(
+                              imageWarnConn,
+                              scale: 1,
+                            ),
+                          ),
+                        ),
+                        const Gap(30),
+                        UserInfoProfile(
+                          onTap: () {},
+                          name: userData.name != null
+                              ? userData.name!
+                              : "Nomor Pengguna",
+                          icon: Icons.person_rounded,
+                        ),
+                        UserInfoProfile(
+                          onTap: () {},
+                          name: userData.identityNumber != null
+                              ? userData.identityNumber!
+                              : "Tidak Ada Nomor Identitas",
+                          icon: Icons.credit_card_rounded,
+                        ),
+                        UserInfoProfile(
+                          onTap: () {},
+                          name: userData.majorclassId != null
+                              ? userData.majorclass!.name!
+                              : "Tidak Ada Jurusan/Kelas",
+                          icon: Icons.class_rounded,
+                        ),
+                        UserInfoProfile(
+                          onTap: () {},
+                          name: userData.email != null
+                              ? userData.email!
+                              : "Tidak Ada Email",
+                          icon: Icons.email_rounded,
+                        ),
+                        UserInfoProfile(
+                            onTap: () {},
+                            name: userData.address != null
+                                ? userData.address!
+                                : "Tidak Ada Alamat",
+                            icon: Icons.location_on_rounded)
+                      ],
+                    );
+                  } else {
+                    return const Center(child: LoadingWidget());
+                  }
+                },
               ),
             ),
           )

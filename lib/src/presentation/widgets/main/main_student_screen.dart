@@ -28,7 +28,6 @@ class _MainPageStudentState extends State<MainPageStudent> {
   @override
   void initState() {
     _getEventForUser();
-    _getUser();
     dateNow = DateTime.now();
     dateString = currentTime(dateNow);
     super.initState();
@@ -69,11 +68,11 @@ class _MainPageStudentState extends State<MainPageStudent> {
                                   name: userData.name != null
                                       ? userData.name!
                                       : "",
-                                  noId: userData.nisn != null
-                                      ? userData.nisn!
+                                  noId: userData.identityNumber != null
+                                      ? userData.identityNumber!
                                       : "",
-                                  className: userData.classes != null
-                                      ? userData.classes!
+                                  className:  userData.majorclassId != null
+                                      ? userData.majorclass!.name!
                                       : "",
                                 );
                               }
@@ -112,19 +111,11 @@ class _MainPageStudentState extends State<MainPageStudent> {
                         ),
                         MainMenuList(
                           onTap: () {},
-                          name: "Kelas",
-                        ),
-                        MainMenuList(
-                          onTap: () {},
                           name: "Jadwal",
                         ),
                         MainMenuList(
                           onTap: () {},
                           name: "Tugas",
-                        ),
-                        MainMenuList(
-                          onTap: () {},
-                          name: "Pengaturan",
                         ),
                       ],
                     ),

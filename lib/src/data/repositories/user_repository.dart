@@ -5,15 +5,9 @@ class User {
 
   getUser(
     String username,
-    String role,
     String token,
   ) async {
-    final url =
-        Uri.parse("${Repository().baseUrlApp}/user/getUser/$username").replace(
-      queryParameters: {
-        "role": role,
-      },
-    );
+    final url = Uri.parse("${Repository().baseUrlApp}/user/getUser/$username");
     final response = await http.get(
       url,
       headers: {
@@ -53,4 +47,28 @@ class User {
       return error = result["message"];
     }
   }
+
+  ///Major Class Lesson
+// getMajorLesson(
+//   int majorId,
+//   String token,
+// ) async {
+//   final url =
+//       Uri.parse("${Repository().baseUrlApp}/user/getMajorClass/$majorId");
+//   try {
+//     final response = await http.get(
+//       url,
+//       headers: {
+//         "Content-Type": "application/json",
+//         "Authorization": token,
+//       },
+//     );
+//     if (response.statusCode == 200) {
+//       final result = jsonDecode(response.body)["data"];
+//       return MajorClassLessonModel.fromJson(result);
+//     } else {}
+//   } catch (error) {
+//     throw Exception(error);
+//   }
+// }
 }

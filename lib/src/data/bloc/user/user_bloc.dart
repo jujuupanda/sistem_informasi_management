@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -48,10 +47,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     try {
       final token = await _getUserToken();
       final username = await _getUserUsername();
-      final role = await _getUserRole();
       final userData = await repository.user.getUser(
         username,
-        role,
         token,
       );
       emit(UserGetUserSuccessState(userData));
@@ -59,6 +56,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserGetUserErrorState());
     }
   }
+
 
   ///Function for get token
 
