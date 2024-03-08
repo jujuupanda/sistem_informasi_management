@@ -1,6 +1,5 @@
 part of 'main_widget.dart';
 
-
 class ScheduleToday extends StatelessWidget {
   const ScheduleToday({
     super.key,
@@ -23,24 +22,55 @@ class ScheduleToday extends StatelessWidget {
             color: Colors.black,
           ),
           const Gap(5),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              "Tidak ada jadwal hari ini",
-              style: GoogleFonts.openSans(),
-            ),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserGetUserSuccessState) {
+                if (state.userData.majorclassId != null) {
+                  final userLessons = state.userData.majorclass!.lessons!;
+                  return Container(
+                    constraints: const BoxConstraints(
+                      maxHeight: 100,
+                      minHeight: 50,
+                    ),
+                    ///Check day is today
+                    child: ListView.builder(
+                      shrinkWrap: false,
+                      padding: EdgeInsets.zero,
+                      itemCount: userLessons.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(userLessons[index].name!),
+                              Text(userLessons[index].startAt!),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(
+                      "Tidak ada jadwal hari ini",
+                      style: GoogleFonts.openSans(),
+                    ),
+                  );
+                }
+              }
+              return Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  "Tidak ada jadwal hari ini",
+                  style: GoogleFonts.openSans(),
+                ),
+              );
+            },
           ),
           const Gap(5),
-          const Padding(
-            padding: EdgeInsets.all(8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Sistem Operasi"),
-                Text("13:00"),
-              ],
-            ),
-          ),
         ],
       ),
     );

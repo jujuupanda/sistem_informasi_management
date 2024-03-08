@@ -1,0 +1,7 @@
+schedule atau jadwal setidaknya berisi tentang:
+siswa:
+- berisi mata pelajaran pada semua hari
+    contoh senin: { agama 11:00-13:00 }, selasa: {dll, dll, dll}
+guru:
+- berisi semua jadwal mengajar oleh guru (sama seperti siswa namun ada tambahan)
+    contoh senin: { agama 11:30-13:00 di ipa 2}, selasa: {dll}
