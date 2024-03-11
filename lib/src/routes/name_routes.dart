@@ -13,5 +13,6 @@ abstract class Routes {
    static const profile = "profile";
    static const userInfo = "userInfo";
    static const presence = "presence";
+   static const schedule = "schedule";
 
 }

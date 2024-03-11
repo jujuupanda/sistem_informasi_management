@@ -110,7 +110,9 @@ class _MainPageStudentState extends State<MainPageStudent> {
                           name: "Pengumuman",
                         ),
                         MainMenuList(
-                          onTap: () {},
+                          onTap: () {
+                            context.pushNamed(Routes.schedule);
+                          },
                           name: "Jadwal",
                         ),
                         MainMenuList(
