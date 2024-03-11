@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sistem_informasi_sekolah/src/presentation/widgets/general/general_widget.dart';
 
 import '../../../data/bloc/user/user_bloc.dart';
+import '../../widgets/general/general_widget.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
