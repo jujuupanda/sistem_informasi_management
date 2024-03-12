@@ -30,10 +30,10 @@ class UserModel {
   String? password;
   String? role;
   String? name;
-  String? identityNumber;
-  String? email;
-  String? address;
-  String? image;
+  dynamic identityNumber;
+  dynamic email;
+  dynamic address;
+  dynamic image;
   int? majorclassId;
   Majorclass? majorclass;
 
@@ -60,67 +60,19 @@ class UserModel {
 class Majorclass {
   Majorclass({
     this.id,
-    this.name,
-    this.lessons,});
+    this.name,});
 
   Majorclass.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
-    if (json['lessons'] != null) {
-      lessons = [];
-      json['lessons'].forEach((v) {
-        lessons?.add(Lessons.fromJson(v));
-      });
-    }
   }
   int? id;
   String? name;
-  List<Lessons>? lessons;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
-    if (lessons != null) {
-      map['lessons'] = lessons?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-
-}
-
-class Lessons {
-  Lessons({
-    this.id,
-    this.name,
-    this.majorclassId,
-    this.teacher,
-    this.startAt,
-    this.endAt,});
-
-  Lessons.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    majorclassId = json['majorclass_id'];
-    teacher = json['teacher'];
-    startAt = json['startAt'];
-    endAt = json['endAt'];
-  }
-  int? id;
-  String? name;
-  int? majorclassId;
-  String? teacher;
-  String? startAt;
-  String? endAt;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['majorclass_id'] = majorclassId;
-    map['teacher'] = teacher;
-    map['startAt'] = startAt;
-    map['endAt'] = endAt;
     return map;
   }
 

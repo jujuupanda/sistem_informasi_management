@@ -14,6 +14,7 @@ class _MainPageStudentState extends State<MainPageStudent> {
   late DateTime dateNow;
   late EventBloc _eventBloc;
   late UserBloc _userBloc;
+  late ScheduleBloc _scheduleBloc;
 
   _getEventForUser() {
     _eventBloc = context.read<EventBloc>();
@@ -23,6 +24,11 @@ class _MainPageStudentState extends State<MainPageStudent> {
   _getUser() {
     _userBloc = context.read<UserBloc>();
     _userBloc.add(UserGetUserEvent());
+  }
+
+  _getSchedule(int classId) {
+    _scheduleBloc = context.read<ScheduleBloc>();
+    _scheduleBloc.add(ScheduleGetScheduleEvent(classId));
   }
 
   @override
@@ -64,6 +70,7 @@ class _MainPageStudentState extends State<MainPageStudent> {
                             builder: (context, state) {
                               if (state is UserGetUserSuccessState) {
                                 final userData = state.userData;
+                                _getSchedule(userData.majorclassId!);
                                 return UserInfoMain(
                                   name: userData.name != null
                                       ? userData.name!
@@ -71,7 +78,7 @@ class _MainPageStudentState extends State<MainPageStudent> {
                                   noId: userData.identityNumber != null
                                       ? userData.identityNumber!
                                       : "",
-                                  className:  userData.majorclassId != null
+                                  className: userData.majorclassId != null
                                       ? userData.majorclass!.name!
                                       : "",
                                 );
@@ -118,6 +125,10 @@ class _MainPageStudentState extends State<MainPageStudent> {
                         MainMenuList(
                           onTap: () {},
                           name: "Tugas",
+                        ),
+                        MainMenuList(
+                          onTap: () {},
+                          name: "Lainnya",
                         ),
                       ],
                     ),

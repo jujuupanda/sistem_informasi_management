@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'app.dart';
 import 'src/data/bloc/auth/auth_bloc.dart';
 import 'src/data/bloc/event/event_bloc.dart';
+import 'src/data/bloc/schedule/schedule_bloc.dart';
 import 'src/data/bloc/user/user_bloc.dart';
 import 'src/data/repositories/repository.dart';
 
@@ -30,6 +31,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (context) => UserBloc(repository: Repository()),
+        ),
+        BlocProvider(
+          create: (context) => ScheduleBloc(repository: Repository()),
         ),
       ],
       child: const App(),

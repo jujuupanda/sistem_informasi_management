@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:sistem_informasi_sekolah/src/routes/name_routes.dart';
 
 import '../../../data/bloc/event/event_bloc.dart';
+import '../../../data/bloc/schedule/schedule_bloc.dart';
 import '../../../data/bloc/user/user_bloc.dart';
 import '../../../utils/utils.dart';
 import '../general/general_widget.dart';
