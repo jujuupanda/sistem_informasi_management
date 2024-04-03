@@ -1,9 +1,24 @@
 part of 'main_widget.dart';
 
-class ScheduleToday extends StatelessWidget {
+class ScheduleToday extends StatefulWidget {
   const ScheduleToday({
     super.key,
   });
+
+  @override
+  State<ScheduleToday> createState() => _ScheduleTodayState();
+}
+
+class _ScheduleTodayState extends State<ScheduleToday> {
+  late String dateString;
+  late DateTime dateNow;
+
+  @override
+  void initState() {
+    dateNow = DateTime.now();
+    dateString = onlyDay(dateNow);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,29 +37,35 @@ class ScheduleToday extends StatelessWidget {
             color: Colors.black,
           ),
           const Gap(5),
-          BlocBuilder<UserBloc, UserState>(
+          BlocBuilder<ScheduleBloc, ScheduleState>(
             builder: (context, state) {
-              if (state is UserGetUserSuccessState) {
-                if (state.userData.majorclassId != null) {
-                  final userLessons = state.userData.majorclass!.lessons!;
+              if (state is GetScheduleSuccessState) {
+                final listSchedule = state.listSchedule;
+                final listScheduleToday = listSchedule
+                    .where((element) => element.day == dateString)
+                    .toList();
+
+                if (listSchedule.isNotEmpty) {
                   return Container(
                     constraints: const BoxConstraints(
                       maxHeight: 100,
                       minHeight: 50,
                     ),
+
                     ///Check day is today
                     child: ListView.builder(
                       shrinkWrap: false,
                       padding: EdgeInsets.zero,
-                      itemCount: userLessons.length,
+                      itemCount: listScheduleToday.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(userLessons[index].name!),
-                              Text(userLessons[index].startAt!),
+                              Text(listScheduleToday[index].subject!.name!),
+                              Text(
+                                  "${listScheduleToday[index].startAt} - ${listScheduleToday[index].endAt}"),
                             ],
                           ),
                         );
@@ -64,7 +85,7 @@ class ScheduleToday extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.all(8),
                 child: Text(
-                  "Tidak ada jadwal hari ini",
+                  "Jadwal Kosong",
                   style: GoogleFonts.openSans(),
                 ),
               );

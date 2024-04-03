@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sistem_informasi_sekolah/src/data/models/event_model.dart';
-import 'package:sistem_informasi_sekolah/src/presentation/pages/profile/user_info.dart';
+import 'package:sistem_informasi_sekolah/src/presentation/pages/schedule/schedule.dart';
 
+import '../data/models/event_model.dart';
 import '../presentation/pages/choice/choice.dart';
 import '../presentation/pages/event/detail_event.dart';
 import '../presentation/pages/event/event.dart';
@@ -10,6 +10,7 @@ import '../presentation/pages/main/main.dart';
 import '../presentation/pages/navigation_bar/navigation_bar.dart';
 import '../presentation/pages/presence/presence.dart';
 import '../presentation/pages/profile/profile.dart';
+import '../presentation/pages/profile/user_info.dart';
 import '../presentation/pages/register/register.dart';
 import '../presentation/pages/splash/splash.dart';
 import 'name_routes.dart';
@@ -47,22 +48,31 @@ final GoRouter router = GoRouter(
               },
               routes: [
                 GoRoute(
-                    path: 'event',
-                    name: Routes.event,
-                    builder: (context, state) {
-                      return const EventPage();
-                    },
-                    routes: [
-                      GoRoute(
-                        path: 'detailEvent',
-                        name: Routes.detailEvent,
-                        builder: (context, state) {
-                          return DetailEventPage(
-                            eventModel: state.extra as EventModel,
-                          );
-                        },
-                      ),
-                    ]),
+                  path: 'event',
+                  name: Routes.event,
+                  builder: (context, state) {
+                    return const EventPage();
+                  },
+                  routes: [
+                    GoRoute(
+                      path: 'detailEvent',
+                      name: Routes.detailEvent,
+                      builder: (context, state) {
+                        return DetailEventPage(
+                          eventModel: state.extra as EventModel,
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'schedule',
+                  name: Routes.schedule,
+                  builder: (context, state) {
+                    return const SchedulePage(
+                    );
+                  },
+                ),
               ],
             ),
           ],
@@ -83,21 +93,20 @@ final GoRouter router = GoRouter(
           navigatorKey: _navigatorProfile,
           routes: <RouteBase>[
             GoRoute(
-              path: '/profile',
-              name: Routes.profile,
-              builder: (context, state) {
-                return const ProfilePage();
-              },
-              routes: [
-                GoRoute(
-                  path: 'userInfo',
-                  name: Routes.userInfo,
-                  builder: (context, state) {
-                    return const UserInfoPage();
-                  },
-                ),
-              ]
-            ),
+                path: '/profile',
+                name: Routes.profile,
+                builder: (context, state) {
+                  return const ProfilePage();
+                },
+                routes: [
+                  GoRoute(
+                    path: 'userInfo',
+                    name: Routes.userInfo,
+                    builder: (context, state) {
+                      return const UserInfoPage();
+                    },
+                  ),
+                ]),
           ],
         ),
       ],

@@ -53,3 +53,32 @@ currentTime(DateTime dateTime) {
   );
   return parsedDate;
 }
+
+onlyDay(DateTime dateTime) {
+  // DateTime dateNow = DateTime.now();
+  final date = DateFormat('EEEE').format(dateTime);
+  final parsedDate = date.replaceAllMapped(
+    RegExp(r'\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\b'),
+    (Match match) {
+      switch (match.group(0)) {
+        case 'Monday':
+          return 'Senin';
+        case 'Tuesday':
+          return 'Selasa';
+        case 'Wednesday':
+          return 'Rabu';
+        case 'Thursday':
+          return 'Kamis';
+        case 'Friday':
+          return 'Jumat';
+        case 'Saturday':
+          return 'Sabtu';
+        case 'Sunday':
+          return 'Minggu';
+        default:
+          return match.group(0)!;
+      }
+    },
+  );
+  return parsedDate;
+}
